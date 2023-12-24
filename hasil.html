@@ -110,22 +110,24 @@
         <script src="js/scripts.js"></script>
         <script src="js/persennow.js"></script>
         <script defer>
+                        // Fungsi untuk mendapatkan nilai dari URL pada sisi klien
             function getURLParameter(name) {
-                const urlParams = new URLSearchParams(location.hash.slice(1));
-                const textFragment = urlParams.get(":~:text");
-                if (textFragment) {
-                    // Ganti %25 dengan %
-                    return textFragment;
-                }
-                return null;
+                const urlParams = new URLSearchParams(window.location.hash.slice(1));
+                return urlParams.get(name);
             }
-            
-            function displayResult() {
-                const resultText = getURLParameter("text");
-                document.getElementById("resultHeading").textContent = resultText;
 
-                const textOnly = resultText.split(" adalah ")[0].replace("Jadi, ", "");
-                document.getElementById("askHeading").textContent = textOnly + " berapa?";
+            // Fungsi untuk menampilkan hasil dari URL pada sisi klien
+            function displayResult() {
+                // Mendapatkan nilai dari URL
+                const resultText = getURLParameter("text");
+
+                console.log(resultText);
+
+                if (resultText !== null) {
+                    // Pemrosesan lebih lanjut
+                    const textOnly = resultText.split(" adalah ")[0].replace("Jadi, ", "");
+                    document.getElementById("askHeading").textContent = textOnly + " berapa?";
+
 
                 const combinedText = textOnly + " berapa?" + " " + resultText;
 
@@ -146,7 +148,7 @@
                 } else {
                     console.log("Tidak dapat menemukan nilai persen dan angka.");
                 }
-            }
+            }}
             
             document.addEventListener("DOMContentLoaded", displayResult);
             </script>
